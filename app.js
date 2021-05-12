@@ -14,6 +14,11 @@ const session = require("express-session");
 
 const app = express();
 
+// app.use((req, res, next) => {
+//   console.log(Date.now());
+//   next()
+// })
+
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
@@ -54,6 +59,8 @@ const artistRouter = require("./routes/artist");
 const albumRouter = require("./routes/album");
 const labelRouter = require("./routes/label");
 const styleRouter = require("./routes/style");
+const signRouter = require("./routes/auth");
+
 
 
 // use routers
@@ -62,6 +69,7 @@ app.use("/dashboard/artist", artistRouter); // use artist router
 app.use("/dashboard/album", albumRouter); // use album router
 app.use("/dashboard/label", labelRouter); // use label router
 app.use("/dashboard/style", styleRouter); // use style router
+app.use("/auth", signRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

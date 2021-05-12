@@ -1,0 +1,30 @@
+<form method="post" action="/auth/signup" class="form">
+    {{> flashMessage }}
+    {{!-- usernmae --}}
+    <label for="name">name</label>
+    <input class="input" type="text" id="name" name="username" value="test name">
+
+{{!-- mail --}}
+    <label for="email">email</label>
+    <input class="input" type="email" id="email" name="email" value="test@email.com">
+
+{{!-- password --}}
+    <label for="password">password</label>
+    <input class="input" type="password" id="password" name="password" value="12345">
+
+{{!-- Role --}}
+    <label for="role">Role</label>
+    <select name="role" id="role">
+        <option value="">Admin</option>
+        <option value="">User</option>
+    </select>
+
+    {{!-- <label for="avatar"></label>
+    <input name="avatar" type="file"> --}}
+
+
+    <button class="btn">signup</button>
+</form>
+<p>
+    Already got an account ? <a href="/auth/signin">signin</a>
+</p>
