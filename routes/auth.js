@@ -3,7 +3,7 @@ const router = new express.Router();
 const UserModel = require("./../model/User");
 const protectAdminRoute = require("./../middlewares/protectAdminRoute");
 const uploader = require("./../config/cloudinary");
-
+const bcrypt = require("bcrypt"); // lib to encrypt data
 
 router.get("/signin", (req, res, next) => {
     res.render("auth/signin.hbs")
@@ -54,11 +54,13 @@ router.post("/signin", async (req, res, next) => {
         req.flash("warning", "Email already registered");
         res.redirect("/auth/signup");
       } else {
-        return res.send("Helloooo");
+        console.log("====THERE===")
+        console.log(newUser)
         const hashedPassword = bcrypt.hashSync(newUser.password, 10);
         newUser.password = hashedPassword;
         // if (req.file) newUser.avatar = req.file.path;
-        
+        console.log("===HERE====")
+        console.log(newUser)
         await UserModel.create(newUser);
         req.flash("success", "Congrats ! You are now registered !");
         res.redirect("/auth/signin");
