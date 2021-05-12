@@ -16,6 +16,7 @@ router.get("/signup", (req, res, next) => {
 
 router.get("/signout", (req, res, next) => {
     req.session.destroy(function (err) {
+        console.log("LOGOUT")
         res.redirect("/");
     });
 });
@@ -39,12 +40,12 @@ router.post("/signin", async (req, res, next) => {
         // console.log(req.session, "before defining current user");
         req.session.currentUser = userObject; // Stores the user in the session (data server side + a cookie is sent client side)
         req.flash("success", "Successfully logged in...");
-        res.redirect("/profile");
+        res.redirect("/");
       }
     }
   });
  //avatar: req.file.path,
-  router.post("/signup", async (req, res, next) => {
+  router.post("/signup", uploader.single("avatar"), async (req, res, next) => {
     
     try {
       const newUser = { ...req.body }; // clone req.body with spread operator
@@ -54,13 +55,11 @@ router.post("/signin", async (req, res, next) => {
         req.flash("warning", "Email already registered");
         res.redirect("/auth/signup");
       } else {
-        console.log("====THERE===")
-        console.log(newUser)
+
         const hashedPassword = bcrypt.hashSync(newUser.password, 10);
         newUser.password = hashedPassword;
-        // if (req.file) newUser.avatar = req.file.path;
-        console.log("===HERE====")
-        console.log(newUser)
+        if (!req.file) UserModel.avatar = undefined;
+        else UserModel.avatar = req.file.path;
         await UserModel.create(newUser);
         req.flash("success", "Congrats ! You are now registered !");
         res.redirect("/auth/signin");

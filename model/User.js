@@ -14,14 +14,14 @@ const userSchema = new Schema(
       },
     role: {
         type: String,
-        enum: ["Admin", "User"],
-        default: "User"
-    }
-    // avatar: {
-    //   type: String,
-    //   default:
-    //     "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-default-avatar-profile-icon-social-media-user-vector-portrait-176194876.jpg",
-    // },
+        enum: ["admin", "user"],
+        default: "user"
+    },
+    avatar: {
+      type: String,
+      default:
+        "https://thumbs.dreamstime.com/b/default-avatar-profile-icon-social-media-user-vector-default-avatar-profile-icon-social-media-user-vector-portrait-176194876.jpg",
+    },
   },
   { timestamps: true }
 );
